@@ -1,6 +1,6 @@
 name: chunky
 description: Chunk strings into smaller pieces for easier processing and storage.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/ArcaneArts/chunky
 environment:
   sdk: ^3.7.0
