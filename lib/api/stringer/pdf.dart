@@ -16,12 +16,11 @@ class PDFStringer extends FileStringer {
     ProcessResult result = await Process.run("ocrmypdf", [
       "--sidecar",
       sidecar.path,
-      "--jobs",
-      "1",
+      //"--jobs", "1",
       //"--force-ocr",
-      "--invalidate-digital-signatures",
+      // "--invalidate-digital-signatures",
       "--output-type", "pdf",
-      "--optimize", "0",
+      //"--optimize", "0",
       file.path,
       outputPDF.path,
     ]);
