@@ -1,4 +1,3 @@
-import 'package:chunky/api/embedder.dart';
 import 'package:chunky/chunky.dart';
 
 void main() async {

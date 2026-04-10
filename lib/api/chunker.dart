@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:bpe/bpe.dart';
+import 'package:chunky/api/stringer.dart';
 
 /// Extension on [Stream<Chunk>] that adds the ability to create overlapping chunks.
 extension XChunkList on Stream<Chunk> {
@@ -80,6 +82,30 @@ class Chunker {
   ///
   /// @param chunkSize The target size for each chunk in characters (default: 500)
   const Chunker({this.chunkSize = 300});
+
+  /// Transforms a raw string into non-overlapping chunks.
+  ///
+  /// @param input The raw text content to chunk
+  /// @return A stream of non-overlapping chunks
+  Stream<Chunk> transformString(String input) => transform(Stream.value(input));
+
+  /// Transforms a file into non-overlapping chunks using Chunky's file stringers.
+  ///
+  /// Stringers may emit file content line by line, so this method restores
+  /// line breaks between emitted pieces before chunking.
+  ///
+  /// @param file The file to ingest
+  /// @return A stream of non-overlapping chunks
+  Stream<Chunk> transformFile(File file) =>
+      transform(FileStringer.streamFile(file).map((piece) => "$piece\n"));
+
+  /// Transforms a file into overlapping chunks using Chunky's file stringers.
+  ///
+  /// @param file The file to ingest
+  /// @param overlap The number of characters to overlap between chunks
+  /// @return A stream of overlapping chunks
+  Stream<Chunk> transformFileWithOverlap(File file, {int overlap = 50}) =>
+      transformFile(file).overlap(overlap);
 
   /// Transforms a text stream into chunks with overlap between consecutive chunks.
   ///
