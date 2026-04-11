@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:chunky/api/stringer.dart';
 import 'package:chunky/api/stringer/text.dart';
-import 'package:fast_log/fast_log.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class PDFStringer extends FileStringer {
   const PDFStringer({super.supportedFormats = const {"pdf"}});
@@ -17,7 +15,7 @@ class PDFStringer extends FileStringer {
       "--sidecar",
       sidecar.path,
       //"--jobs", "1",
-      //"--force-ocr",
+      "--force-ocr",
       // "--invalidate-digital-signatures",
       "--output-type", "pdf",
       //"--optimize", "0",
@@ -30,36 +28,6 @@ class PDFStringer extends FileStringer {
     }
     if (result.stderr != null && result.stderr.isNotEmpty) {
       print("[OCRMyPDF] STDERR: ${result.stderr}");
-    }
-
-    if (!await sidecar.exists()) {
-      info(
-        "OCR Unnecessary for ${file.path}. Text already exists. Reading out sidecar...",
-      );
-
-      File of = outputPDF;
-      if (!await outputPDF.exists()) {
-        of = file;
-      }
-
-      PdfDocument document = PdfDocument(inputBytes: await of.readAsBytes());
-      int pageCount = document.pages.count;
-      IOSink sink = sidecar.openWrite();
-      for (int i = 0; i < pageCount; i++) {
-        sink.writeln(
-          PdfTextExtractor(
-            document,
-          ).extractText(startPageIndex: i, layoutText: true),
-        );
-      }
-
-      document.dispose();
-      await sink.flush();
-      await sink.close();
-    } else {
-      info(
-        "OCR complete for ${file.path}. Text saved to ${sidecar.path} and PDF saved to ${outputPDF.path}. Feeding text into pandoc",
-      );
     }
 
     yield* const TextFileStringer().stream(sidecar);

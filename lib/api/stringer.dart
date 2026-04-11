@@ -5,13 +5,11 @@ import 'package:chunky/api/stringer/docx.dart';
 import 'package:chunky/api/stringer/pandoc.dart';
 import 'package:chunky/api/stringer/pdf.dart';
 import 'package:chunky/api/stringer/text.dart';
-import 'package:chunky/api/stringer/xlsx.dart';
 import 'package:fast_log/fast_log.dart';
 
 /// List of all available file stringers in priority order.
 /// When a file is processed, the first stringer that supports the file format is used.
 List<FileStringer> fileStringers = const [
-  XLSXFileStringer(),
   DOCXFileStringer(),
   PDFStringer(),
   PandocStringer(),

@@ -1,17 +1,15 @@
 name: chunky
 description: Chunk strings into smaller pieces for easier processing and storage.
-version: 1.0.3
+version: 1.0.5
 repository: https://github.com/ArcaneArts/chunky
 environment:
   sdk: ^3.7.0
 dependencies:
   flutter:
     sdk: flutter
-  archive: ">=3.6.1 <4.0.0"
+  archive: ">=3.6.1 <5.0.0"
   bpe: ">=1.0.2 <2.0.0"
-  excel: ">=4.0.6 <5.0.0"
   fast_log: ">=1.0.7 <2.0.0"
-  syncfusion_flutter_pdf: ">=29.1.40 <30.0.0"
   toxic: ">=1.3.4 <2.0.0"
   xml: ">=6.5.0 <7.0.0"
 dev_dependencies:
