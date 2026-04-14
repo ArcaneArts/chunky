@@ -13,6 +13,7 @@ class TextFileStringer extends FileStringer {
       "xml",
       "html",
       "csv",
+      "toon",
     },
   });
 
